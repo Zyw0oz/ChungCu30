@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -126,6 +126,103 @@
     function close360() {
         document.getElementById('myModal').style.display = "none";
         document.getElementById('iframe360').src = ""; 
+    }
+</script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chung Cư Virtual Tour - Fast Load</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { position: relative; width: fit-content; border: 10px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.2); line-height: 0; }
+        .sodo-img { max-width: 1000px; height: auto; display: block; }
+        
+        .btn-phong {
+            position: absolute; width: 32px; height: 32px; background: #e63946; color: white;
+            border-radius: 6px; text-align: center; line-height: 32px; cursor: pointer;
+            font-weight: bold; font-size: 16px; transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 5;
+        }
+        .btn-phong:hover { background: #000; transform: scale(1.1); }
+
+        /* Tọa độ nút bấm */
+        #btn-1 { top: 31%; left: 15%; }
+        #btn-2 { top: 31%; left: 38%; }
+        #btn-3 { top: 65%; left: 40%; }
+        #btn-4 { top: 27%; left: 62%; }
+        #btn-5 { top: 51%; left: 68%; }
+        #btn-6 { top: 49%; left: 21%; }
+        #btn-6-extra { top: 78%; left: 22%; }
+        #btn-7 { top: 18%; left: 11%; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .modal-content { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 95%; height: 85%; max-width: 1400px; background: #000; border-radius: 12px; overflow: hidden;
+        }
+        #panorama { width: 100%; height: 100%; }
+        
+        .close-btn { 
+            position: absolute; top: 15px; right: 15px; color: white; font-size: 16px; 
+            cursor: pointer; background: #e63946; padding: 10px 25px; border-radius: 5px;
+            z-index: 110; font-weight: bold; transition: 0.3s;
+        }
+        .close-btn:hover { background: #000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="SoDoChungCu.png" class="sodo-img">
+    <div class="btn-phong" id="btn-1" onclick="load360('img360/hanh-lang.jpg')">1</div>
+    <div class="btn-phong" id="btn-2" onclick="load360('img360/ban-an.jpg')">2</div>
+    <div class="btn-phong" id="btn-3" onclick="load360('img360/bep.jpg')">3</div>
+    <div class="btn-phong" id="btn-4" onclick="load360('img360/phong-khach.jpg')">4</div>
+    <div class="btn-phong" id="btn-5" onclick="load360('img360/phong-ngu-1.jpg')">5</div>
+    <div class="btn-phong" id="btn-6" onclick="load360('img360/phong-ngu-2.jpg')">6</div>
+    <div class="btn-phong" id="btn-6-extra" onclick="load360('img360/phong-ngu-3.jpg')">6'</div>
+    <div class="btn-phong" id="btn-7" onclick="load360('img360/7. WC.jpg')">7</div>
+</div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close360()">← Quay về sơ đồ</span>
+        <div id="panorama"></div>
+    </div>
+</div>
+
+<script>
+    let viewer;
+
+    function load360(imagePath) {
+        document.getElementById('myModal').style.display = "block";
+        
+        // Hủy viewer cũ nếu đang tồn tại để tránh rác bộ nhớ
+        if(viewer) viewer.destroy();
+
+        viewer = pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": imagePath,
+            "autoLoad": true,
+            "compass": false,
+            "mouseZoom": true
+        });
+    }
+
+    function close360() {
+        document.getElementById('myModal').style.display = "none";
+        if(viewer) viewer.destroy(); 
     }
 </script>
 
