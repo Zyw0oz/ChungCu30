@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chung Cư Virtual Tour</title>
+    <style>
+        .container { position: relative; width: fit-content; margin: auto; }
+        .sodo-img { max-width: 1000px; height: auto; display: block; }
+        
+        /* Style cho các nút số giống ảnh mẫu */
+        .btn-phong {
+            position: absolute;
+            width: 32px; 
+            height: 32px;
+            background: #e63946; /* Màu đỏ chủ đạo giống ảnh */
+            color: white;
+            border-radius: 6px; /* Bo góc nhẹ kiểu hình vuông của ảnh */
+            text-align: center;
+            line-height: 32px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease; /* Hiệu ứng mượt mà khi đổi màu */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 5;
+        }
+
+/* Hiệu ứng khi di chuột vào: Nền đỏ -> Nền đen */
+.btn-phong:hover {
+    background: #000000; /* Đổi sang màu đen */
+    transform: scale(1.1); /* Phóng to nhẹ một chút cho sinh động */
+}    
+        /* Style cho các nút số */
+        .btn-phong {
+            position: absolute;
+            width: 30px; height: 30px;
+            background: #ff4500; color: white;
+            border-radius: 50%; text-align: center;
+            line-height: 30px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Tọa độ các phòng - bạn chỉnh lại % ở đây cho đúng vị trí trên ảnh của bạn */
+        #phong-khach { top: 20%; left: 60%; }
+        #phong-ngu-1 { top: 60%; left: 20%; }
+        #phong-ngu-2 { top: 60%; left: 80%; }
+
+        /* Lớp phủ (Modal) để hiện ảnh 360 */
+        .modal {
+            display: none; position: fixed; z-index: 100;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content { width: 90%; height: 90%; margin: 2% auto; position: relative; }
+        .close-btn { position: absolute; right: 0; top: -40px; color: white; font-size: 30px; cursor: pointer; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="SoDoChungCu.png" class="sodo-img">
+
+    <div class="btn-phong" id="phong-khach" onclick="open360('https://api2.enscape3d.com/v3/view/9029a339-2edd-4694-a5ed-ceb62b227d13')">1</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/27f9c56d-f707-43ae-9374-dec36f52e5d9')">2</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/7d0e83dd-3ec1-47f3-af02-0c7fb54a5b1a')">3</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/6dccf307-5867-46f9-8cbf-18b02c279a8b')">4</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/9b5f6a9a-0deb-4edf-969b-900a8d6537eb')">5</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/2155d879-7141-4955-9565-84edfeb82c85')">6</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/534291bc-b4f0-4b8c-828f-3949b49da11b')">7</div>
+    <div class="btn-phong" id="phong-ngu-1" onclick="open360('https://api2.enscape3d.com/v3/view/1f465127-cf66-4df3-9e64-04821e3767ee')">8</div>
+
+</div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close360()">&times; Đóng</span>
+        <iframe id="iframe360" src=""></iframe>
+    </div>
+</div>
+
+<script>
+    function open360(url) {
+        document.getElementById('iframe360').src = url;
+        document.getElementById('myModal').style.display = "block";
+    }
+    function close360() {
+        document.getElementById('myModal').style.display = "none";
+        document.getElementById('iframe360').src = ""; // Reset link để tắt nhạc/video nếu có
+    }
+</script>
+
+</body>
+</html>
